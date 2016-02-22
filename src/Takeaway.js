@@ -1,4 +1,6 @@
 function Takeaway() {
+  this.basket = []
+  this.cost = 0
   this.menu = {
     'Margherita': 6,
     'Funghi': 6,
@@ -13,6 +15,18 @@ function Takeaway() {
   }
 }
 
-Takeaway.prototype.showMenu = function(){
-  return this.menu;
+Takeaway.prototype.order = function(item, quantity) {
+  if (item in this.menu) {
+    this.basket.push([item, quantity]);
+  }
+  else {
+    throw 'Sorry, that item is not on the menu, please select another item from the menu';
+  }
+};
+
+Takeaway.prototype.calculateCost = function() {
+  for(i = 0; i < this.basket.length; i++){
+    var itemArray = this.basket[i]
+    this.cost += (this.menu[itemArray[0]] * itemArray[1]);
+  }
 };
